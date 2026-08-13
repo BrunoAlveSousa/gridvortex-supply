@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+# GridVortex · Supply
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Módulo Supply do GridVortex — protótipo funcional desenvolvido separadamente do produto principal, seguindo o mesmo padrão visual (sidebar, cards, badges, paleta teal/emerald).
 
-Currently, two official plugins are available:
+## Telas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. **Lista de Materiais** — consulta (somente leitura) dos SKUs disponíveis.
+2. **Módulos Construtivos** — CRUD de kits de materiais reutilizáveis.
+3. **Cadastro de Obras** — CRUD de obras, associação de módulos + materiais complementares, cálculo automático de Prazo Máximo e Crítica Lead Time.
+4. **Cadastro de Projetos** — CRUD de projetos, associação de obras, objetivo/destinação em cascata.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + TypeScript + Vite
+- Tailwind CSS v4
+- @tanstack/react-query
+- Supabase (Postgres + PostgREST) — tabelas `supply_*` no schema `public`
+- react-router-dom
 
-## Expanding the Oxlint configuration
+## Rodando localmente
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+cp .env.example .env   # preencha com as credenciais do seu projeto Supabase
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Banco de dados
+
+O schema e os dados de exemplo (extraídos de `Visão Geral.xlsx`) estão em `../db/`:
+- `001_schema.sql` — tabelas, views (`supply_obra_materiais_view`, `supply_projeto_materiais_view`) e RLS.
+- `002_seed_materiais.sql` — empresa ESE, tabelas auxiliares e os 13 materiais de exemplo.
+- `003_seed_modulos_obras_projetos.sql` — módulos M-1/M-2, obras O-1/O-2, projeto P-1.
+
+**Regra de negócio:** Prazo Máximo = Data Início da obra − Lead Time do material (dias). Crítica Lead Time = "Fora do Prazo!" quando o Prazo Máximo já passou da data atual, senão "Válido".
+
+## Observação sobre segurança
+
+RLS está habilitado com policies abertas de leitura/escrita via chave anônima — adequado para este protótipo sem autenticação. Antes de qualquer uso em produção, adicionar autenticação e restringir as policies.
