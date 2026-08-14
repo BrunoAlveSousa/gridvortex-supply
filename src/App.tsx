@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { EmpresaProvider } from "@/lib/empresa-context";
 import { AppLayout } from "@/components/layout/app-layout";
@@ -17,7 +17,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <EmpresaProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Navigate to="/materiais" replace />} />
@@ -28,7 +28,7 @@ export default function App() {
               <Route path="*" element={<Navigate to="/materiais" replace />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </EmpresaProvider>
     </QueryClientProvider>
   );
