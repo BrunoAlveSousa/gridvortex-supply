@@ -15,7 +15,7 @@ export function useObras(empresaId: string | null) {
       const { data, error } = await supabase
         .from("supply_obras")
         .select(
-          "*, supply_obra_modulos(*, modulo:supply_modulos_construtivos(*)), supply_obra_materiais_extra(*, material:supply_materiais(*))"
+          "*, obra_modulos:supply_obra_modulos(*, modulo:supply_modulos_construtivos(*)), obra_materiais_extra:supply_obra_materiais_extra(*, material:supply_materiais(*))"
         )
         .eq("empresa_id", empresaId!)
         .order("codigo");

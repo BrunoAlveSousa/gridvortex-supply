@@ -13,7 +13,7 @@ export function useModulos(empresaId: string | null) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("supply_modulos_construtivos")
-        .select("*, supply_modulo_itens(*, material:supply_materiais(*))")
+        .select("*, modulo_itens:supply_modulo_itens(*, material:supply_materiais(*))")
         .eq("empresa_id", empresaId!)
         .order("codigo");
       if (error) throw error;

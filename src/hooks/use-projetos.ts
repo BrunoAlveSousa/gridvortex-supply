@@ -13,7 +13,7 @@ export function useProjetos(empresaId: string | null) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("supply_projetos")
-        .select("*, supply_projeto_obras(*, obra:supply_obras(*))")
+        .select("*, projeto_obras:supply_projeto_obras(*, obra:supply_obras(*))")
         .eq("empresa_id", empresaId!)
         .order("codigo");
       if (error) throw error;
