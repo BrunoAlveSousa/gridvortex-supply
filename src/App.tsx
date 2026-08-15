@@ -6,6 +6,7 @@ import { MateriaisPage } from "@/pages/materiais-page";
 import { ModulosPage } from "@/pages/modulos-page";
 import { ObrasPage } from "@/pages/obras-page";
 import { ProjetosPage } from "@/pages/projetos-page";
+import { NecessidadePage } from "@/pages/necessidade-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ export default function App() {
               <Route path="/modulos" element={<ModulosPage />} />
               <Route path="/obras" element={<ObrasPage />} />
               <Route path="/projetos" element={<ProjetosPage />} />
+              <Route path="/necessidade" element={<NecessidadePage />} />
               <Route path="*" element={<Navigate to="/materiais" replace />} />
             </Route>
           </Routes>

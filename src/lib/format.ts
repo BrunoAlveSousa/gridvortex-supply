@@ -1,7 +1,21 @@
+/**
+ * Parses a price/quantity that may come from the source spreadsheet in
+ * either plain ("111.23") or Brazilian ("20,86" / "1.234,56") notation, or
+ * as a non-numeric classification note ("6- DESPADRONIZADO"). Returns null
+ * when the value isn't a parseable number.
+ */
+export function parseNumericBR(value: string | number | null | undefined): number | null {
+  if (value === null || value === undefined || value === "") return null;
+  if (typeof value === "number") return Number.isNaN(value) ? null : value;
+  const s = value.trim();
+  const normalized = s.includes(",") ? s.replace(/\./g, "").replace(",", ".") : s;
+  const num = Number(normalized);
+  return Number.isNaN(num) ? null : num;
+}
+
 export function formatCurrency(value: string | number | null | undefined): string {
-  if (value === null || value === undefined || value === "") return "—";
-  const num = typeof value === "number" ? value : Number(value);
-  if (Number.isNaN(num)) return String(value); // e.g. "6- DESPADRONIZADO"
+  const num = parseNumericBR(value);
+  if (num === null) return value ? String(value) : "—"; // e.g. "6- DESPADRONIZADO"
   return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 

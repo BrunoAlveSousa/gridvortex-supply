@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Package, Boxes, HardHat, FolderKanban, Zap } from "lucide-react";
+import { Package, Boxes, HardHat, FolderKanban, Zap, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -7,6 +7,7 @@ const navItems = [
   { to: "/modulos", label: "Módulos Construtivos", icon: Boxes },
   { to: "/obras", label: "Cadastro de Obras", icon: HardHat },
   { to: "/projetos", label: "Cadastro de Projetos", icon: FolderKanban },
+  { to: "/necessidade", label: "Necessidade de Materiais", icon: Layers },
 ];
 
 export function Sidebar() {

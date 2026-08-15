@@ -110,11 +110,24 @@ export interface ObraMaterialRollup {
   natureza: string | null;
   material_id: string;
   sku: number;
+  classe: number | null;
   descricao_resumida: string;
   unidade_medida: string | null;
   lead_time: number | null;
+  tipo_material: string | null;
+  preco_unitario: string | null;
   quantidade_total: number;
   idt_extra: "S" | "N";
   prazo_maximo: string | null;
   critica_lead_time: "Válido" | "Fora do Prazo!" | null;
+}
+
+export interface ProjetoMaterialRollup extends ObraMaterialRollup {
+  projeto_id: string;
+  projeto_codigo: string;
+  nome_projeto: string | null;
+  cod_objetivo: number | null;
+  objetivo: string | null;
+  cod_destinacao: number | null;
+  destinacao_descricao: string | null;
 }
